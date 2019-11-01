@@ -19,7 +19,7 @@ public class Section extends AbstractBaseEntity {
     private static final long serialVersionUID = 1652188885757279448L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 

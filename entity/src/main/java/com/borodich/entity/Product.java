@@ -25,7 +25,7 @@ public class Product extends AbstractBaseEntity {
     private static final long serialVersionUID = -1962662067708450327L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -39,6 +39,7 @@ public class Product extends AbstractBaseEntity {
     private String description;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "expiry_Date")
     private Date expiryDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

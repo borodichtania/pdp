@@ -20,7 +20,7 @@ public class Customer extends AbstractBaseEntity {
     private static final long serialVersionUID = -8335190571849701588L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 

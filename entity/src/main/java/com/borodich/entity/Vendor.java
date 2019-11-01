@@ -19,7 +19,7 @@ public class Vendor extends AbstractBaseEntity {
     private static final long serialVersionUID = 2243220376669935489L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 

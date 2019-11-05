@@ -19,4 +19,9 @@ public class ProductServiceImpl extends AbstractBaseService<Product> implements 
 	return productDao.getProductsFromSection(titleSection);
     }
 
+    @Override
+    public List getAmountProductsForEachBrand() {
+	return productDao.getAmountProductsForEachBrand();
+    }
+
 }

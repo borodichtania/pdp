@@ -74,4 +74,12 @@ public class ProductController extends AbstractBaseController<Product>{
 	result.put("result", products);
 	return result;
     }
+    
+    @GetMapping("amountProductsForEachBrand")
+    public Map<String, Object> getAmountProductsForEachBrand(){
+	List products = productService.getAmountProductsForEachBrand();
+	Map<String, Object> result = new HashMap<String, Object>();
+	result.put("result", products);
+	return result;
+    }
 }

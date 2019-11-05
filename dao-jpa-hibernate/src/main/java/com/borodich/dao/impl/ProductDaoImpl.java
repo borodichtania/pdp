@@ -37,6 +37,14 @@ public class ProductDaoImpl extends AbstractBaseDao<Product> implements ProductD
 		.where(getCriteriaBuilder().and(getCriteriaBuilder().equal(sections.get(Section_.title), titleSection)));
 	query.where(getCriteriaBuilder().in(productRoot.get(Product_.id)).value(subquery));
 	List<Product> products = getTypedQuery(query).getResultList();
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public List getAmountProductsForEachBrand() {
+	CriteriaQuery query = entityManager.getCriteriaBuilder().createQuery();
+	Root<Product> productRoot = query.from(Product.class);
+	query.multiselect(getCriteriaBuilder().count(productRoot.get(Product_.id)), productRoot.get(Product_.brand));
+	query.groupBy(productRoot.get(Product_.brand));
+	List products = getTypedQuery(query).getResultList();
 	return products;
     }
 }

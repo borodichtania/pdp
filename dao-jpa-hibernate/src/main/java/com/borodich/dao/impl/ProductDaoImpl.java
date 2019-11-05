@@ -22,6 +22,16 @@ public class ProductDaoImpl extends AbstractBaseDao<Product> implements ProductD
 	super(Product.class);
     }
 
+    
+    @SuppressWarnings("unchecked")
+    @Override
+    public Product findById(Integer id) {
+	EntityGraph<Product> entityGraph = (EntityGraph<Product>) entityManager.getEntityGraph("product-entity-graph");
+	Map<String, Object> properties = new HashMap<>();
+	properties.put("javax.persistence.loadgraph", entityGraph);
+	return entityManager.find(clazz, id);
+    }
+    
     @Override
     public List<Product> getProductsFromSection(String titleSection) {
 	CriteriaQuery<Product> query = getCriteriaQuery();

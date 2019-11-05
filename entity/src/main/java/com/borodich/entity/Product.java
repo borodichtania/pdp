@@ -15,12 +15,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "product")
+@NamedEntityGraph(
+	  name = "product-entity-graph",
+	  attributeNodes = {
+	    @NamedAttributeNode("section"),
+	    @NamedAttributeNode("brand")
+	  }
+	)
 public class Product extends AbstractBaseEntity {
     private static final long serialVersionUID = -1962662067708450327L;
 
@@ -44,10 +53,12 @@ public class Product extends AbstractBaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_fk")
+    @JsonIgnore
     private Section section;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_fk")
+    @JsonIgnore
     private Brand brand;
 
     @ManyToMany(mappedBy = "products")

@@ -16,7 +16,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-@Configuration
+//@Configuration
 public class EclipseLinkJpaConfiguration extends JpaBaseConfiguration {
 
     @Autowired

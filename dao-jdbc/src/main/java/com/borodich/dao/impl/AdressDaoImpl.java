@@ -12,6 +12,8 @@ import java.util.List;
 
 @Repository
 public class AdressDaoImpl extends AbstractBaseDao<Adress> implements AdressDao {
+    
+    private RowMapper<Adress> rowMapper = new AdressRowMapper();
 
     public AdressDaoImpl() {
 	super(Adress.class);
@@ -38,7 +40,7 @@ public class AdressDaoImpl extends AbstractBaseDao<Adress> implements AdressDao 
     @Override
     public Adress findById(Integer id) {
 	return jdbcTemplate.queryForObject("select * from adress where id=?", new Object[] { id },
-	        new AdressRowMapper());
+		rowMapper);
     }
 
     @Override
@@ -62,6 +64,6 @@ public class AdressDaoImpl extends AbstractBaseDao<Adress> implements AdressDao 
 
     @Override
     public List<Adress> findAll() {
-	return jdbcTemplate.query("select * from adress", new AdressRowMapper());
+	return jdbcTemplate.query("select * from adress", rowMapper);
     }
 }

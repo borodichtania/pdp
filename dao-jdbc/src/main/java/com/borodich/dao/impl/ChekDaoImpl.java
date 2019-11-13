@@ -22,6 +22,7 @@ import java.util.List;
 public class ChekDaoImpl extends AbstractBaseDao<Chek> implements ChekDao {
 
     private static final String CHEK = "chek";
+    private RowMapper<Chek> rowMapper = new ChekRowMapper();
 
     public ChekDaoImpl() {
 	super(Chek.class);
@@ -60,17 +61,17 @@ public class ChekDaoImpl extends AbstractBaseDao<Chek> implements ChekDao {
 
     @Override
     public List<Chek> getCheksByCustomer(Integer idCustomer) {
-	return jdbcTemplate.queryForList("select * from chek where customer_fk = ?", clazz, idCustomer);
+	return jdbcTemplate.query("select * from chek where customer_fk = ?", rowMapper, idCustomer);
     }
 
     @Override
     public List<Chek> getCheksBySum(String sum) {
-	return jdbcTemplate.queryForList("select * from chek where sum = ?", clazz, sum);
+	return jdbcTemplate.query("select * from chek where sum = ?", rowMapper, sum);
     }
 
     @Override
     public Chek findById(Integer id) {
-	return jdbcTemplate.queryForObject("select * from chek where id = ?", new ChekRowMapper(), id);
+	return jdbcTemplate.queryForObject("select * from chek where id = ?", rowMapper, id);
     }
 
     @Override
@@ -82,7 +83,7 @@ public class ChekDaoImpl extends AbstractBaseDao<Chek> implements ChekDao {
 	                        entity.getCustomer().getId(), entity.getVendor().getId() });
 
 	final Chek chek = jdbcTemplate.queryForObject("select * from chek order by id desc limit 1",
-	        new ChekRowMapper());
+		rowMapper);
 
 	final List<Product> products = entity.getProducts();
 	jdbcTemplate.batchUpdate("insert into chek_has_product(chek_fk, product_fk) values (?,?)",
@@ -119,6 +120,6 @@ public class ChekDaoImpl extends AbstractBaseDao<Chek> implements ChekDao {
 
     @Override
     public List<Chek> findAll() {
-	return jdbcTemplate.query("select * from chek", new ChekRowMapper());
+	return jdbcTemplate.query("select * from chek", rowMapper);
     }
 }

@@ -8,8 +8,11 @@ import com.borodich.entity.Section_;
 
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
@@ -47,6 +50,9 @@ public class ProductDaoImpl extends AbstractBaseDao<Product> implements ProductD
 		.where(getCriteriaBuilder().and(getCriteriaBuilder().equal(sections.get(Section_.title), titleSection)));
 	query.where(getCriteriaBuilder().in(productRoot.get(Product_.id)).value(subquery));
 	List<Product> products = getTypedQuery(query).getResultList();
+	return products;
+    }
+    
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public List getAmountProductsForEachBrand() {

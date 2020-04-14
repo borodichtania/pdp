@@ -17,7 +17,7 @@ public class ChekServiceImpl extends AbstractBaseService<Chek> implements ChekSe
     
     @Override
     public void delete(Integer id) throws ChekIsNotPaid {
-	Chek chek = chekDao.findById(id);
+	Chek chek = (Chek) chekDao.findById(id).get();
 	if (!chek.isPaid()) {
 	    throw new ChekIsNotPaid();
 	}

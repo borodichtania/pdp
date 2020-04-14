@@ -15,6 +15,9 @@ public class AdressServiceImpl extends AbstractBaseService<Adress> implements Ad
     @Autowired
     private AdressDao adressDao;
 
+    public AdressServiceImpl() {
+		System.out.println(adressDao);
+	}
     @Override
     public List<Adress> getListAdressByStreet(String street) {
 	return adressDao.getListAdressByStreet(street);

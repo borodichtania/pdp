@@ -38,18 +38,18 @@ public class CustomerServiceImpl extends AbstractBaseService<Customer> implement
 	List<Product> products = new ArrayList<Product>();
 	Double sum = 0.0;
 	for (Integer id : productsId) {
-	    Product product = (Product) productDao.findById(id);
+	    Product product = (Product) productDao.findById(id).get();
 	    sum = sum + product.getPrice();
 	    products.add(product);
 	}
-	Customer customer = (Customer) customerDao.findById(customerId);
+	Customer customer = (Customer) customerDao.findById(customerId).get();
 	Chek chek = createNewChek(sum, customer, products, adressId);
 
 	List<Chek> cheks = new ArrayList<Chek>();
 	cheks.add(chek);
 	customer.setCheks(cheks);
 
-	customerDao.update(customer);
+	customerDao.save(customer);
     }
     
     private Chek createNewChek(Double sum, Customer customer, List<Product> products, Integer adressId) throws FreeVendorNotExist{
@@ -59,9 +59,9 @@ public class CustomerServiceImpl extends AbstractBaseService<Customer> implement
 	}
 	Vendor vendor = vendors.get(0);
 	vendor.setStatus(true);
-	Adress adress = (Adress) adressDao.findById(adressId);
+	Adress adress = (Adress) adressDao.findById(adressId).get();
 	Chek chek = chekDao.prepareNewChek(sum, customer, products, vendor, adress);
-	chekDao.saveAndFlush(chek);
+	chekDao.save(chek);
 	return chek;
     }
 
